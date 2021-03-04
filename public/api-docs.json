@@ -3,7 +3,18 @@
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000",
   "apis": [
-
+    {
+      "path": "/api/v1/auth.{format}",
+      "description": "Auth API"
+    },
+    {
+      "path": "/api/v1/referrals.{format}",
+      "description": "Referral"
+    },
+    {
+      "path": "/api/v1/users.{format}",
+      "description": "User"
+    }
   ],
   "authorizations": null,
   "info": {

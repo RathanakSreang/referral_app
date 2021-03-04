@@ -4,7 +4,11 @@ Rails.application.routes.draw do
       post "signin", to: "auth#signin"
       post "signup", to: "auth#signup"
       delete "signout", to: "auth#signout"
-      resources :users
+      resources :users, only: [:show, :delete] do
+        collection do
+          resources :referrals
+        end
+      end
     end
   end
 end
