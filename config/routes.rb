@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api, path: "/" do
+    namespace :v1 do
+      post "signin", to: "auth#signin"
+      post "signup", to: "auth#signup"
+      delete "signout", to: "auth#signout"
+      resources :users
+    end
+  end
 end
