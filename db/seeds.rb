@@ -3,10 +3,8 @@ alice = User.create name: "alice",
                     password: "1234567890"
 
 
-rederal = alice.rederals.create referrer_credit: 10,
-                                user_credit: 10,
-                                usage_count: 0,
-                                reward_per_usage: 5
+rederal = alice.build_referral
+rederal.save
 
 6.times do |n|
   user = User.create name: "user #{n}",

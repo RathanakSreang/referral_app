@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :access_tokens, dependent: :destroy
-  has_many :rederals, class_name: "Referral",
-                      foreign_key: "referrer_id",
-                      dependent: :destroy
+  has_many :referrals, class_name: "Referral",
+                       foreign_key: "referrer_id",
+                       dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :name, presence: true, length: { maximum: 80 }
@@ -21,6 +21,14 @@ class User < ApplicationRecord
   def generate_access_token!
     access_token = access_tokens.create! expires_at: DateTime.current + Settings.auth.expires_in.days
     access_token.token
+  end
+
+  def build_referral
+    referrals.new referrer_credit: Settings.referral.referrer_credit,
+                  user_credit: Settings.referral.user_credit,
+                  reward_per_usage: Settings.referral.reward_per_usage,
+                  referrer: self,
+                  usage_count: 0
   end
 
   private

@@ -1,2 +1,6 @@
 auth:
   expires_in: 30
+referral:
+  referrer_credit: 10
+  user_credit: 10
+  reward_per_usage: 5

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   context "associations" do
     it { should have_many(:access_tokens).dependent(:destroy) }
-    it { should have_many(:rederals).class_name("Referral").dependent(:destroy) }
+    it { should have_many(:referrals).class_name("Referral").dependent(:destroy) }
   end
 
   context "validations" do
@@ -93,6 +93,38 @@ RSpec.describe User, type: :model do
         expect_any_instance_of(Referral).to receive(:increase_usage_count!)
         user.save
       end
+    end
+  end
+
+  describe "#generate_access_token!" do
+    let(:user) {FactoryBot.create :user, balance: 0}
+    it "should create user's access token" do
+      expect {user.generate_access_token!}.to change{AccessToken.count}.by(1)
+    end
+
+    it "should return token" do
+      token = user.generate_access_token!
+      expect(user.access_tokens.map(&:token)).to include(token)
+    end
+  end
+
+  describe "#build_referral" do
+    let(:user) {FactoryBot.create :user, balance: 0}
+    it "should initialize valid referral" do
+      referral = user.build_referral
+
+      expect(referral.valid?).to eq(true)
+    end
+
+    it "should initialize new referral with configure value" do
+      referral = user.build_referral
+
+      expect(referral.id).to eq(nil)
+      expect(referral.referrer_id).to eq(user.id)
+      expect(referral.referrer_credit).to eq(Settings.referral.referrer_credit)
+      expect(referral.user_credit).to eq(Settings.referral.user_credit)
+      expect(referral.reward_per_usage).to eq(Settings.referral.reward_per_usage)
+      expect(referral.usage_count).to eq(0)
     end
   end
 end
