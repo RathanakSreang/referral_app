@@ -1,24 +1,42 @@
-# README
+# Referral APP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web app which provide API for user to create referral to invite other members and an credit.
 
-Things you may want to cover:
+###Development
+#### Using docker
+You need to have `Docker` install
 
-* Ruby version
+For first time or ever new migrations
+```
+docker-compose up -d
+docker-compose exec api bundle exec rake db:setup db:migrate
+docker-compose down
+docker-compose up
+```
 
-* System dependencies
+- API doc
+```
+docker-compose exec api bundle exec rake swagger:docs
+```
 
-* Configuration
+#### Using your local machine
+You need to have `ruby-2.7.0`,  `rails-6.0.3`, `PostgreSQL 9.5`
 
-* Database creation
+- Configure database:
+Setup database: Make you already install postgrest - `sudo -i -u postgres` - login to postgrest `psql` - the create user tobnhom_go
+`CREATE ROLE referral_user WITH SUPERUSER CREATEDB LOGIN ENCRYPTED PASSWORD 'RathanakPassword';`
 
-* Database initialization
+- Start server:
+```
+bundle install
+rails db:setup db:migrate
+rails s
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- API doc
+Generate API Doc
+```
+rake swagger:docs
+```
+Access API doc
+`http://localhost:3000/swagger/index.html`
