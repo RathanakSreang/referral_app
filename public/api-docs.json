@@ -8,12 +8,12 @@
       "description": "Auth API"
     },
     {
-      "path": "/api/v1/referrals.{format}",
-      "description": "Referral"
-    },
-    {
       "path": "/api/v1/users.{format}",
       "description": "User"
+    },
+    {
+      "path": "/api/v1/referrals.{format}",
+      "description": "Referral"
     }
   ],
   "authorizations": null,

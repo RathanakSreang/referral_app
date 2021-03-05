@@ -11,9 +11,9 @@
           "parameters": [
             {
               "paramType": "header",
-              "name": "Authorization",
+              "name": "AccessToken",
               "type": "string",
-              "description": "Authorization Bearer",
+              "description": "AccessToken",
               "required": true
             }
           ],
@@ -30,9 +30,9 @@
           "parameters": [
             {
               "paramType": "header",
-              "name": "Authorization",
+              "name": "AccessToken",
               "type": "string",
-              "description": "Authorization Bearer",
+              "description": "AccessToken",
               "required": true
             }
           ],
@@ -49,9 +49,9 @@
           "parameters": [
             {
               "paramType": "header",
-              "name": "Authorization",
+              "name": "AccessToken",
               "type": "string",
-              "description": "Authorization Bearer",
+              "description": "AccessToken",
               "required": true
             },
             {
@@ -75,9 +75,9 @@
           "parameters": [
             {
               "paramType": "header",
-              "name": "Authorization",
+              "name": "AccessToken",
               "type": "string",
-              "description": "Authorization Bearer",
+              "description": "AccessToken",
               "required": true
             }
           ],
@@ -93,9 +93,9 @@
           "parameters": [
             {
               "paramType": "header",
-              "name": "Authorization",
+              "name": "AccessToken",
               "type": "string",
-              "description": "Authorization Bearer",
+              "description": "AccessToken",
               "required": true
             },
             {

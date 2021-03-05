@@ -1,5 +1,11 @@
 class ApiController < ApplicationController
-  include Api::ExceptionRescue
+  def render_success response_params = {}
+    render json: {success: true, data: response_params}
+  end
+
+  def render_errors response_params = {}, status = :unprocessable_entity
+    render json: {success: false, errors: response_params}, status: status
+  end
 
   class << self
     Swagger::Docs::Generator::set_real_methods
@@ -13,9 +19,9 @@ class ApiController < ApplicationController
 
     private
     def setup_basic_api_documentation
-      %i[index show create update destroy signout].each do |api_action|
+      %i[index show create update destroy signout my_profile].each do |api_action|
         swagger_api api_action do
-          param :header, "Authorization", :string, :required, "Authorization Bearer"
+          param :header, "AccessToken", :string, :required, "AccessToken"
         end
       end
     end

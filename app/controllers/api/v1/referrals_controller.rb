@@ -1,6 +1,6 @@
 class Api::V1::ReferralsController < ApiController
   before_action :load_referral, only: [:show, :update, :destroy]
-  swagger_controller :occupation, "Referral"
+  swagger_controller :referral, "Referral"
 
   swagger_api :index do
     summary "Referral list"
