@@ -27,7 +27,7 @@ class Api::V1::ReferralsController < ApiController
         referral: Api::V1::ReferralSerializer.new(referral)
       })
     else
-      render_errors(referral.errors, :bad_request)
+      render_errors(referral.errors.details, :bad_request)
     end
   end
 end

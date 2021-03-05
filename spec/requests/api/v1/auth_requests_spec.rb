@@ -70,11 +70,17 @@ RSpec.describe Api::V1::AuthController, type: :controller do
       context "missing require field" do
         let(:params) {{name: "Awesome"}}
 
-        it "returns unprocessable_entity" do
+        it "returns bad_request with errors fields" do
           expect(response).to have_http_status(:bad_request)
-          # TODO return errors code
-          # expect(json_body["errors"].length).to eq 2
-          # expect(json_body["errors"]).to eq 2
+          expect(json_body["errors"].keys).to match_array(["email", "password"])
+        end
+      end
+
+      context "invalid referral_code" do
+        let(:params) {{name: "Awesome", email: "awesome@test.com", password: "1234567890", referral_code: "unknown"}}
+        it "returns bad_request with errors fields" do
+          expect(response).to have_http_status(:bad_request)
+          expect(json_body["errors"].keys).to match_array(["referral_code"])
         end
       end
     end

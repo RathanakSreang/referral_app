@@ -38,7 +38,7 @@ class Api::V1::AuthController < ApiController
         access_token: user.generate_access_token!
       })
     else
-      render_errors(user.errors, :bad_request)
+      render_errors(user.errors.details, :bad_request)
     end
   end
 
