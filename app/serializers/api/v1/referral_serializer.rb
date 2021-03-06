@@ -1,4 +1,4 @@
-class Api::V1::ReferralSerializer < ActiveModel::Serializer
+class Api::V1::ReferralSerializer < BaseSerializer
   attributes :id, :referrer_credit, :user_credit, :reward_per_usage,
     :usage_count, :code, :referral_url, :created_at
 

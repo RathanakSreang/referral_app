@@ -13,6 +13,7 @@ RSpec.describe Api::V1::AuthController, type: :controller do
 
       it "returns user info" do
         expect(response).to be_successful
+        expect(json_body["data"].keys).to match_array(["user", "access_token", "refresh_token"])
         expect(json_body["data"]["user"]["id"]).to eq(user.id)
         expect(json_body["data"]["user"].keys).to match_array(["id", "name", "balance", "email", "referral_code"])
       end
@@ -42,7 +43,7 @@ RSpec.describe Api::V1::AuthController, type: :controller do
       let(:params) {{name: "Awesome", email: "awesome@test.com", password: "1234567890"}}
       it "returns user info and access token" do
         expect(response).to be_successful
-        expect(json_body["data"].keys).to match_array(["user", "access_token"])
+        expect(json_body["data"].keys).to match_array(["user", "access_token", "refresh_token"])
         expect(json_body["data"]["user"].keys).to match_array(["id", "name", "balance", "email", "referral_code"])
         expect(json_body["data"]["access_token"]).not_to be_empty
         expect(json_body["data"]["user"]["email"]).to eq("awesome@test.com")
@@ -57,11 +58,16 @@ RSpec.describe Api::V1::AuthController, type: :controller do
 
       context "with valid referral code" do
         let(:referrer) {FactoryBot.create :user, balance: 0}
-        let(:referral) {FactoryBot.create :referral, referrer: referrer}
+        let(:referral) {FactoryBot.create :referral, referrer: referrer, usage_count: 4, reward_per_usage: 5}
         let(:params) {{name: "Awesome", email: "awesome@test.com", password: "1234567890", referral_code: referral.code}}
 
         it "returns user with credited balance" do
           expect(json_body["data"]["user"]["balance"]).to eq(referral.user_credit)
+        end
+
+        it "should increase referral's usage_count and credit to referrer" do
+          expect(referrer.reload.balance).to eq (referral.referrer_credit)
+          expect(referral.reload.usage_count).to eq (5)
         end
       end
     end

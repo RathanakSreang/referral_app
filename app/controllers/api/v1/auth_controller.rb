@@ -14,7 +14,8 @@ class Api::V1::AuthController < ApiController
     if user && user.authenticate_password(params[:password])
       render_success({
         user: Api::V1::UserSerializer.new(user),
-        access_token: user.generate_access_token!
+        access_token: user.generate_access_token!,
+        refresh_token: "TODO"
       })
     else
       render_errors([{email_or_password: [ERROR_CODES[:invalid]]}])
@@ -35,7 +36,8 @@ class Api::V1::AuthController < ApiController
     if user.save
       render_success({
         user: Api::V1::UserSerializer.new(user),
-        access_token: user.generate_access_token!
+        access_token: user.generate_access_token!,
+        refresh_token: "TODO"
       })
     else
       render_errors(user.errors.details, :bad_request)
