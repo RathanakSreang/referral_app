@@ -14,6 +14,11 @@ docker-compose down
 docker-compose up
 ```
 
+- Test
+```
+docker-compose exec api bundle exec rspec
+```
+
 - API doc
 ```
 docker-compose exec api bundle exec rake swagger:docs
@@ -33,6 +38,11 @@ rails db:setup db:migrate
 rails s
 ```
 
+- run test
+```
+rspec .
+```
+
 - API doc
 Generate API Doc
 ```
@@ -40,3 +50,5 @@ rake swagger:docs
 ```
 Access API doc
 `http://localhost:3000/swagger/index.html`
+
+###Deployment
