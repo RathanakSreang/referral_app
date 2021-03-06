@@ -52,3 +52,16 @@ Access API doc
 `http://localhost:3000/swagger/index.html`
 
 ###Deployment
+#### Heroku
+Create swagger for heroku
+```
+RAILS_ENV=production rake swagger:docs
+```
+
+```
+heroku create
+git push heroku master
+heroku run rake db:migrate
+heroku run rake db:seed
+```
+Access to swagger on heroku `{heroku-domain}/swagger/index.html`
