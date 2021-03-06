@@ -65,3 +65,5 @@ heroku run rake db:migrate
 heroku run rake db:seed
 ```
 Access to swagger on heroku `{heroku-domain}/swagger/index.html`
+
+Demo: https://polar-hamlet-30705.herokuapp.com/swagger/index.html
