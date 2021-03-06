@@ -2,7 +2,7 @@
 
 Web app which provide API for user to create referral to invite other members and an credit.
 
-###Development
+### Development
 #### Using docker
 You need to have `Docker` install
 
@@ -51,7 +51,7 @@ rake swagger:docs
 Access API doc
 `http://localhost:3000/swagger/index.html`
 
-###Deployment
+### Deployment
 #### Heroku
 Create swagger for heroku
 ```
